@@ -1,5 +1,21 @@
 {% extends "modelo.html" %}
 {% block conteudo %}
+<style>
+  .task-action {
+    margin-left: 10px;
+    text-decoration: none;
+    padding: 3px 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+
+  .buttons{
+    display: flex;
+    justify-content: center;
+  }
+</style>
+
+<div style="width: 800px;margin: 0 auto;">
 <h1 class="text-center">Glossário</h1>
 
 <table class="table table-striped table-responsive table-bordered text-center">
@@ -12,23 +28,21 @@
     </tr>
   </thead>
   <tbody>
-  {% for termo in glossario %}
+    {% for termo in glossario %}
     <tr>
       <th scope="row">{{ loop.index }}</th>
       <td>{{ termo[0] }}</td>
       <td>{{ termo[1] }}</td>
-      <td>
-        <!-- editar esse action depois -->
-        <!-- <form action="{{ url_for('excluir_termo', termo_id=loop.index-1) }}" method="post">
-        <button type="submit" class="btn btn-danger">Editar</button> -->
-      </form>
+      <td class="buttons" >
+        <a href="{{ url_for('editar_termo', termo_id=loop.index0) }}" class="task-action btn btn-primary">Editar</a>
         <form method="post" action="{{ url_for('excluir_termo', termo_id=loop.index-1) }}">
-        <button type="submit" class="btn btn-danger">Excluir</button>
+          <button type="submit" class="task-action btn btn-danger">Excluir</button>
         </form>
       </td>
     </tr>
-  {% endfor %}
+    {% endfor %}
   </tbody>
 </table>
+</div>
 
 {% endblock %}

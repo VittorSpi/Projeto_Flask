@@ -55,6 +55,36 @@ def criar_termo():
     return redirect(url_for('glossario'))
 
 
+@app.route('/editar_termo/<int:termo_id>')
+def editar_termo(termo_id):
+    with open('bd_glossario.csv', 'r', newline='', encoding='utf-8') as file:
+        reader = csv.reader(file, delimiter=';')
+        linhas = list(reader)
+
+    if termo_id < len(linhas):
+        termo = linhas[termo_id][0]
+        return render_template('editar_termo.html', termo=termo, termo_id=termo_id)
+    else:
+        return redirect(url_for('glossario'))
+
+@app.route('/atualizar_termo/<int:termo_id>', methods=['POST'])
+def atualizar_termo(termo_id):
+    novo_termo = request.form['novo_termo']
+
+    with open('bd_glossario.csv', 'r', newline='', encoding='utf-8') as file:
+        reader = csv.reader(file, delimiter=';')
+        linhas = list(reader)
+
+    if termo_id < len(linhas):
+        linhas[termo_id][0] = novo_termo
+
+        with open('bd_glossario.csv', 'w', newline='', encoding='utf-8') as file:
+            writer = csv.writer(file, delimiter=';')
+            writer.writerows(linhas)
+
+    return redirect(url_for('glossario'))
+
+
 @app.route('/excluir_termo/<int:termo_id>', methods=['POST'])
 def excluir_termo(termo_id):
 
@@ -76,62 +106,93 @@ def excluir_termo(termo_id):
     return redirect(url_for('glossario'))
 
 
-#TO-DO
+#LISTA DE TAREFAS
 
 @app.route('/lista')
 def lista():
-
     lista_de_tarefas = []
 
-    with open(
-            'bd_lista.csv',
-            newline='', encoding='utf-8') as arquivo:
+    with open('bd_lista.csv', newline='', encoding='utf-8') as arquivo:
         reader = csv.reader(arquivo, delimiter=';')
         for l in reader:
             lista_de_tarefas.append(l)
 
-    return render_template('lista.html',
-                           lista=lista_de_tarefas)
-
+    return render_template('lista.html', lista=lista_de_tarefas)
 
 @app.route('/nova_tarefa')
 def nova_tarefa():
     return render_template('adicionar_tarefa.html')
 
-@app.route('/criar_tarefa', methods=['POST', ])
+@app.route('/criar_tarefa', methods=['POST'])
 def criar_tarefa():
     tarefa = request.form['tarefa']
 
-    with open(
-            'bd_lista.csv', 'a',
-            newline='', encoding='utf-8') as arquivo:
+    with open('bd_lista.csv', 'a', newline='', encoding='utf-8') as arquivo:
         writer = csv.writer(arquivo, delimiter=';')
-        writer.writerow([tarefa])
+        writer.writerow([tarefa, 'pendente'])
 
     return redirect(url_for('lista'))
 
+@app.route('/editar_tarefa/<int:tarefa_id>')
+def editar_tarefa(tarefa_id):
+    with open('bd_lista.csv', 'r', newline='', encoding='utf-8') as file:
+        reader = csv.reader(file, delimiter=';')
+        linhas = list(reader)
+
+    if tarefa_id < len(linhas):
+        tarefa = linhas[tarefa_id][0]
+        return render_template('editar_tarefa.html', tarefa=tarefa, tarefa_id=tarefa_id)
+    else:
+        return redirect(url_for('lista'))
+
+@app.route('/atualizar_tarefa/<int:tarefa_id>', methods=['POST'])
+def atualizar_tarefa(tarefa_id):
+    nova_tarefa = request.form['nova_tarefa']
+
+    with open('bd_lista.csv', 'r', newline='', encoding='utf-8') as file:
+        reader = csv.reader(file, delimiter=';')
+        linhas = list(reader)
+
+    if tarefa_id < len(linhas):
+        linhas[tarefa_id][0] = nova_tarefa
+
+        with open('bd_lista.csv', 'w', newline='', encoding='utf-8') as file:
+            writer = csv.writer(file, delimiter=';')
+            writer.writerows(linhas)
+
+    return redirect(url_for('lista'))
 
 @app.route('/excluir_tarefa/<int:tarefa_id>', methods=['POST'])
 def excluir_tarefa(tarefa_id):
-
-    with open('bd_lista.csv', 'r', newline='') as file:
-        reader = csv.reader(file)
+    with open('bd_lista.csv', 'r', newline='', encoding='utf-8') as file:
+        reader = csv.reader(file, delimiter=';')
         linhas = list(reader)
 
-    # Encontrar e excluir o termo com base no ID
-    for i, linha in enumerate(linhas):
-        if i == tarefa_id:
-            del linhas[i]
-            break
+    if tarefa_id < len(linhas):
+        del linhas[tarefa_id]
 
-    # Salvar as alterações de volta no arquivo
-    with open('bd_lista.csv', 'w', newline='') as file:
-        writer = csv.writer(file)
-        writer.writerows(linhas)
+        with open('bd_lista.csv', 'w', newline='', encoding='utf-8') as file:
+            writer = csv.writer(file, delimiter=';')
+            writer.writerows(linhas)
 
     return redirect(url_for('lista'))
 
+@app.route('/marcar_completa/<int:tarefa_id>')
+def marcar_completa(tarefa_id):
+    with open('bd_lista.csv', 'r', newline='', encoding='utf-8') as file:
+        reader = csv.reader(file, delimiter=';')
+        linhas = list(reader)
 
+    if tarefa_id < len(linhas):
+        linhas[tarefa_id][1] = 'completa'
+
+        with open('bd_lista.csv', 'w', newline='', encoding='utf-8') as file:
+            writer = csv.writer(file, delimiter=';')
+            writer.writerows(linhas)
+
+    return redirect(url_for('lista'))
 
 if __name__ == "__main__":
     app.run()
+
+# to-do - ajeitar o botao de excluir do glossario e da lista

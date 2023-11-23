@@ -1,14 +1,84 @@
 {% extends "modelo.html" %}
 {% block conteudo %}
+<!-- lista.html -->
+<!-- lista.html -->
+
+<style>
+  /* Style the task list */
+.task-list {
+  list-style: none;
+}
+
+/* Style each task item */
+.task-item {
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  word-wrap: break-word;
+}
+
+/* Style the task checkbox */
+.task-checkbox {
+  margin-right: 10px;
+}
+
+/* Style the task text */
+.task-text {
+  flex-grow: 1;
+  max-width: 400px;
+}
+
+/* Style the task action links */
+.task-action {
+  margin-left: 10px;
+  text-decoration: none;
+  padding: 3px 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+/* Estilo para o botão de check */
+.check {
+    background-color: #4caf50;
+    color: #fff;
+    border: 1px solid #388e3c;
+  }
+  
+  /* Estilo para o botão de editar */
+  .edit {
+    background-color: #2196f3;
+    color: #fff;
+    border: 1px solid #1565c0;
+  }
+  
+  /* Estilo para o botão de deletar */
+  .delete {
+    background-color: #af4c4c;
+    color: #fff;
+    border: 1px solid #8e3234;
+  }
+
+  .task-text.concluida {
+      text-decoration: line-through;
+      opacity: 0.5;
+  }
+</style>
+
 <ul class="task-list">
-    {% for todo in todos %}
-    <li class="task-item">
-      <span class="task-text" {% if todo['done'] %}style="text-decoration: line-through; opacity: 0.5;" {% endif %}>{{ todo['task'] }}</span>
-      <a href="{{ url_for('check', index=loop.index0) }}" class="task-action check">concluir</a>
-      <a href="{{ url_for('edit', index=loop.index0) }}" class="task-action edit">editar</a>
-      <a href="{{ url_for('delete', index=loop.index0) }}" class="task-action delete">excluir</a>
-    </li>
-    {% endfor %}
-  </ul>
+  {% for tarefa in lista %}
+      <li class="task-item">
+          <span class="task-text {% if tarefa[1] == 'completa' %}concluida{% endif %}">{{ tarefa[0] }}</span>
+          <a href="{{ url_for('editar_tarefa', tarefa_id=loop.index0) }}" class="task-action edit">Editar</a>
+          <a href="{{ url_for('excluir_tarefa', tarefa_id=loop.index0) }}" class="task-action delete">Excluir</a>
+          <a href="{{ url_for('marcar_completa', tarefa_id=loop.index0) }}" class="task-action check">Concluir</a>
+      </li>
+  {% endfor %}
+</ul>
+
+
 
 {% endblock %}

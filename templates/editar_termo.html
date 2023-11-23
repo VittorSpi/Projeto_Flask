@@ -1,0 +1,14 @@
+{% extends "modelo.html" %}
+{% block conteudo %}
+
+    <h1>Editar Termo - {{ termo }}</h1>
+
+    <form action="{{ url_for('atualizar_termo', termo_id=termo_id) }}" method="POST">
+        <label for="novo_termo">Novo termo:</label>
+        <input type="text" id="novo_termo" name="novo_termo" value="{{ termo }}" required>
+        <label for="novo_termo">Nova definição:</label>
+        <input type="text" id="novo_termo" name="novo_termo" value="{{ definicao }}" required>
+        <br>
+        <button type="submit">Atualizar Termo</button>
+    </form>
+{% endblock%}

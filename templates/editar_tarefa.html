@@ -1,0 +1,12 @@
+{% extends "modelo.html" %}
+{% block conteudo %}
+
+    <h1>Editar Tarefa</h1>
+
+    <form action="{{ url_for('atualizar_tarefa', tarefa_id=tarefa_id) }}" method="POST">
+        <label for="nova_tarefa">Nova Tarefa:</label>
+        <input type="text" id="nova_tarefa" name="nova_tarefa" value="{{ tarefa }}" required>
+        <br>
+        <button type="submit">Atualizar Tarefa</button>
+    </form>
+{% endblock%}

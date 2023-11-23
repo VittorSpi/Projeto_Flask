@@ -1,14 +1,30 @@
 {% extends "modelo.html" %}
 {% block conteudo %}
-<h1 class="text-center">Adicionar Tarefa</h1>
+<style>
+  .container{
+    width:800px;
+    margin:100px auto 0 auto;
+    background-color: #1565c0;
+    padding: 30px;color: #fff;
+    border-radius: 10px;
+  }
+</style>
 
-<form action="{{ url_for('criar_tarefa')}}" method="post">
+<div class="container">
+<h1 style="text-align: center;">Adicionar Termo</h1>
+
+<form action="{{ url_for('criar_termo')}}" method="post">
   <div class="mb-3">
-    <label for="tarefa" class="form-label">Tarefa:</label>
-    <input  class="form-control" id="tarefa" name="tarefa" aria-describedby="emailHelp" autofocus autocomplete="off">
-    <div id="tarefaHelp" class="form-text"></div>
+    <label for="termo" class="form-label">Termo</label>
+    <input  class="form-control" id="termo" name="termo" aria-describedby="emailHelp">
+    <div id="termoHelp" class="form-text">Termo para ser adicionado.</div>
   </div>
-  <button type="submit" class="btn btn-primary">Enviar</button>
+  <div class="mb-3">
+    <label for="definicao" class="form-label">Definição</label>
+    <textarea class="form-control" id="definicao" name="definicao" rows="3"></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary" style="border: 1px solid #478cdb;">Enviar</button>
 </form>
+</div>
 
 {% endblock %}
