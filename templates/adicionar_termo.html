@@ -4,9 +4,15 @@
   .container{
     width:800px;
     margin:100px auto 0 auto;
-    background-color: #1565c0;
-    padding: 30px;color: #fff;
+    background-color: #fff;
+    border: 2px solid #ddd;
+    padding: 30px;
+    color: #000;
     border-radius: 10px;
+  }
+
+  .form-control{
+    border: 1px solid #777;
   }
 </style>
 
@@ -16,12 +22,11 @@
 <form action="{{ url_for('criar_termo')}}" method="post">
   <div class="mb-3">
     <label for="termo" class="form-label">Termo</label>
-    <input  class="form-control" id="termo" name="termo" aria-describedby="emailHelp">
-    <div id="termoHelp" class="form-text">Termo para ser adicionado.</div>
+    <input  class="form-control" id="termo" name="termo" aria-describedby="emailHelp" autocomplete="off" required>
   </div>
   <div class="mb-3">
     <label for="definicao" class="form-label">Definição</label>
-    <textarea class="form-control" id="definicao" name="definicao" rows="3"></textarea>
+    <textarea class="form-control" id="definicao" name="definicao" rows="3" required></textarea>
   </div>
   <button type="submit" class="btn btn-primary" style="border: 1px solid #478cdb;">Enviar</button>
 </form>

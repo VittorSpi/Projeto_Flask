@@ -1,5 +1,17 @@
 {% extends "modelo.html" %}
 {% block conteudo %}
+<style>
+.container{
+  margin: 180px auto 0 auto;
+  width: 600px;
+}
+
+h1{
+  margin-bottom: 15px;
+}
+</style>
+
+<div class="container">
 <h1 class="text-center">Adicionar Tarefa</h1>
 
 <form action="{{ url_for('criar_tarefa')}}" method="post">
@@ -10,5 +22,5 @@
   </div>
   <button type="submit" class="btn btn-primary">Enviar</button>
 </form>
-
+</div>
 {% endblock %}

@@ -63,7 +63,8 @@ def editar_termo(termo_id):
 
     if termo_id < len(linhas):
         termo = linhas[termo_id][0]
-        return render_template('editar_termo.html', termo=termo, termo_id=termo_id)
+        definicao = linhas[termo_id][1]
+        return render_template('editar_termo.html', termo=termo, definicao=definicao, termo_id=termo_id)
     else:
         return redirect(url_for('glossario'))
 
@@ -195,4 +196,7 @@ def marcar_completa(tarefa_id):
 if __name__ == "__main__":
     app.run()
 
-# to-do - ajeitar o botao de excluir do glossario e da lista
+# to-do 
+# ajeitar o botao de excluir do glossario e da lista
+# arrumar a <li> da lista
+# arrumar tabela do glossario - pegar definiçao no editar_tertmo

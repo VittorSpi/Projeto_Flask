@@ -5,56 +5,57 @@
 
 <style>
   /* Style the task list */
-.task-list {
-  list-style: none;
-}
+  .task-list {
+    list-style: none;
+  }
 
-/* Style each task item */
-.task-item {
-  margin-bottom: 10px;
-  padding: 10px;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  word-wrap: break-word;
-}
+  /* Style each task item */
+  .task-item {
+    margin: 10px auto 0 auto;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    word-wrap: break-word;
+    width: 800px;
+  }
 
-/* Style the task checkbox */
-.task-checkbox {
-  margin-right: 10px;
-}
+  /* Style the task checkbox */
+  .task-checkbox {
+    margin-right: 10px;
+  }
 
-/* Style the task text */
-.task-text {
-  flex-grow: 1;
-  max-width: 400px;
-}
+  /* Style the task text */
+  .task-text {
+    flex-grow: 1;
+    max-width: 550px;
+  }
 
-/* Style the task action links */
-.task-action {
-  margin-left: 10px;
-  text-decoration: none;
-  padding: 3px 5px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-}
+  /* Style the task action links */
+  .task-action {
+    margin-left: 10px;
+    text-decoration: none;
+    padding: 3px 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
 
-/* Estilo para o botão de check */
-.check {
+  /* Estilo para o botão de check */
+  .check {
     background-color: #4caf50;
     color: #fff;
     border: 1px solid #388e3c;
   }
-  
+
   /* Estilo para o botão de editar */
   .edit {
     background-color: #2196f3;
     color: #fff;
     border: 1px solid #1565c0;
   }
-  
+
   /* Estilo para o botão de deletar */
   .delete {
     background-color: #af4c4c;
@@ -63,21 +64,31 @@
   }
 
   .task-text.concluida {
-      text-decoration: line-through;
-      opacity: 0.5;
+    text-decoration: line-through;
+    opacity: 0.5;
   }
 </style>
 
-<ul class="task-list">
-  {% for tarefa in lista %}
-      <li class="task-item">
-          <span class="task-text {% if tarefa[1] == 'completa' %}concluida{% endif %}">{{ tarefa[0] }}</span>
-          <a href="{{ url_for('editar_tarefa', tarefa_id=loop.index0) }}" class="task-action edit">Editar</a>
-          <a href="{{ url_for('excluir_tarefa', tarefa_id=loop.index0) }}" class="task-action delete">Excluir</a>
-          <a href="{{ url_for('marcar_completa', tarefa_id=loop.index0) }}" class="task-action check">Concluir</a>
-      </li>
-  {% endfor %}
-</ul>
+<div style="margin-top:100px">
+  <h1 class="text-center">Tarefas:</h1>
+  <ul class="task-list">
+    {% for tarefa in lista %}
+    <li class="task-item">
+      <span class="task-text {% if tarefa[1] == 'completa' %}concluida{% endif %}">{{ tarefa[0] }}</span>
+      <a href="{{ url_for('editar_tarefa', tarefa_id=loop.index0) }}" class="task-action edit">Editar</a>
+      <form method="post" action="{{ url_for('excluir_tarefa', tarefa_id=loop.index-1) }}">
+        <button type="submit" class="task-action" style="background-color: #af4c4c;color: #fff;border: 1px solid #832525;">Excluir</button>
+      </form>
+      <a href="{{ url_for('marcar_completa', tarefa_id=loop.index0) }}" class="task-action check">Concluir</a>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <div>
+    <a href="{{ url_for('nova_tarefa') }}" class="btn btn-primary d-flex justify-content-center" style="width: 35%;margin: 0 auto;">+ Adicionar nova tarefa</a>
+  </div>
+
+</div>
 
 
 
