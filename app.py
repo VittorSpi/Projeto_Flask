@@ -4,10 +4,8 @@ from flask import Flask, render_template, redirect, url_for, request
 
 app = Flask(__name__)
 
-# Definindo a variável de ambiente
 os.environ['FLASK_DEBUG'] = 'True'
 
-# Configurando o modo de depuração com base na variável de ambiente
 app.debug = os.environ.get('FLASK_DEBUG') == 'True'
 
 @app.route('/')
@@ -79,7 +77,7 @@ def atualizar_termo(termo_id):
 
     if termo_id < len(linhas):
         linhas[termo_id][0] = novo_termo
-        linhas[termo_id][1] = nova_definicao  # Atualize também a definição
+        linhas[termo_id][1] = nova_definicao
 
         with open('bd_glossario.csv', 'w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file, delimiter=';')
@@ -96,13 +94,11 @@ def excluir_termo(termo_id):
         reader = csv.reader(file)
         linhas = list(reader)
 
-    # Encontrar e excluir o termo com base no ID
     for i, linha in enumerate(linhas):
         if i == termo_id:
             del linhas[i]
             break
 
-    # Salvar as alterações de volta no arquivo
     with open('bd_glossario.csv', 'w', newline='') as file:
         writer = csv.writer(file)
         writer.writerows(linhas)
@@ -198,8 +194,3 @@ def marcar_completa(tarefa_id):
 
 if __name__ == "__main__":
     app.run()
-
-# to-do 
-# colocar favicon (?)
-# descobrir a cor do sobre na navbar
-# ajeitar botao quebrado do glossario (editar/excluir)

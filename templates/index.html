@@ -1,5 +1,36 @@
 {% extends "modelo.html" %}
 {% block conteudo %}
-      <h1>Olá, mundo!</h1>
-      <p><a href="/sobre">Próxima Página</a></p>
+<style>
+      .container {
+            margin-top: 60px;
+            max-width: 800px;
+            display: flex;
+            padding: 30px;
+            gap: 10px;
+            border-radius: 10px;
+            border: 2px solid #ddd;
+      }
+
+      .imagem img {
+            width: 300px;
+            height: 400px;
+            border-radius: 20px;
+      }
+
+      .descricao {
+            justify-content: center;
+            width: 450px;
+      }
+</style>
+
+<div class="container">
+      <div class="imagem">
+            <img src="../static/images/codigo.jpg" alt="">
+      </div>
+      <div class="descricao">
+            <h1>Bem-vindo ao nosso projeto!</h1>
+            <p>Este website foi desenvolvido utilizando as tecnologias web populares, como Python, Flask, HTML e CSS, para proporcionar uma experiência interativa e informativa. Aqui, você encontrará diversas seções que destacam a versatilidade dessas ferramentas e como foram empregadas para criar um ambiente dinâmico e funcional.</p>
+            <p>Este projeto foi concebido com o objetivo de oferecer uma experiência informativa e interativa. Explore, aprenda e desfrute da jornada através das diversas seções que preparamos para você. Agradecemos por visitar e por fazer parte deste projeto!</p>
+      </div>
+</div>
 {% endblock %}

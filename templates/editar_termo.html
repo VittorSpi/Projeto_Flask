@@ -1,27 +1,45 @@
 {% extends "modelo.html" %}
 {% block conteudo %}
-
 <style>
     .container {
-        margin: 180px auto 0 auto;
         width: 600px;
+        margin: 100px auto 0 auto;
+        border: 2px solid #cfcece;
+        padding: 30px;
+        border-radius: 10px;
     }
 
-    h1 {
-        margin-bottom: 15px;
+    .conteudo{
+        text-align: center;
+    }
+
+    .conteudo input, textarea{
+        padding: 5px;
+        border-radius: 10px;
+        border: 1px solid #cfcece;
+        width: 400px;
+        resize: none;
     }
 </style>
 
 <div class="container">
-    <h1>Editar Termo - {{ termo }}</h1>
-    <form action="{{ url_for('atualizar_termo', termo_id=termo_id) }}" method="post">
-        <label for="novo_termo">Termo:</label>
-        <input type="text" name="novo_termo" value="{{ termo }}" required>
-        <br>
-        <label for="nova_definicao">Definição:</label>
-        <input type="text" name="nova_definicao" value="{{ definicao }}" required>
-        <br>
-        <button type="submit">Atualizar Termo</button>
-    </form>
+    <h1 style="text-align: center;">Editar Termo - {{ termo }}</h1>
+
+    <div class="conteudo">
+        <form action="{{ url_for('atualizar_termo', termo_id=termo_id) }}" method="post" class="center-form">
+            <div class="mb-3">
+                <label for="novo_termo" class="form-label">Termo:</label>
+                <br>
+                <input id="novo_termo" name="novo_termo" value="{{ termo }}" autocomplete="off" required>
+            </div>
+            <div class="mb-3">
+                <label for="nova_definicao" class="form-label">Definição:</label>
+                <br>
+                <textarea id="nova_definicao" name="nova_definicao" rows="3" required>{{ definicao }}</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary align-middle" style="border: 1px solid #478cdb;">Atualizar Termo</button>
+        </form>
+    </div>
 </div>
-{% endblock%}
+
+{% endblock %}
