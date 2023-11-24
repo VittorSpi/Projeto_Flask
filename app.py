@@ -71,6 +71,7 @@ def editar_termo(termo_id):
 @app.route('/atualizar_termo/<int:termo_id>', methods=['POST'])
 def atualizar_termo(termo_id):
     novo_termo = request.form['novo_termo']
+    nova_definicao = request.form['nova_definicao']
 
     with open('bd_glossario.csv', 'r', newline='', encoding='utf-8') as file:
         reader = csv.reader(file, delimiter=';')
@@ -78,12 +79,14 @@ def atualizar_termo(termo_id):
 
     if termo_id < len(linhas):
         linhas[termo_id][0] = novo_termo
+        linhas[termo_id][1] = nova_definicao  # Atualize também a definição
 
         with open('bd_glossario.csv', 'w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file, delimiter=';')
             writer.writerows(linhas)
 
     return redirect(url_for('glossario'))
+
 
 
 @app.route('/excluir_termo/<int:termo_id>', methods=['POST'])
@@ -197,6 +200,6 @@ if __name__ == "__main__":
     app.run()
 
 # to-do 
-# ajeitar o botao de excluir do glossario e da lista
-# arrumar a <li> da lista
-# arrumar tabela do glossario - pegar definiçao no editar_tertmo
+# colocar favicon (?)
+# descobrir a cor do sobre na navbar
+# ajeitar botao quebrado do glossario (editar/excluir)
