@@ -17,7 +17,7 @@ h1{
 <form action="{{ url_for('criar_tarefa')}}" method="post">
   <div class="mb-3">
     <label for="tarefa" class="form-label">Tarefa:</label>
-    <input  class="form-control" id="tarefa" name="tarefa" aria-describedby="emailHelp" autofocus autocomplete="off">
+    <input  class="form-control" id="tarefa" name="tarefa" aria-describedby="emailHelp" autofocus autocomplete="off" required>
     <div id="tarefaHelp" class="form-text"></div>
   </div>
   <button type="submit" class="btn btn-primary">Enviar</button>
