@@ -14,6 +14,10 @@
     justify-content: center;
     gap: 10px;
   }
+
+  .termo, .descricao{
+    word-break: break-all;
+  }
 </style>
 
 <div style="width: 800px;margin: 0 auto;">
@@ -32,8 +36,8 @@
       {% for termo in glossario %}
       <tr>
         <th scope="row" class="align-middle">{{ loop.index }}</th>
-        <td class="align-middle">{{ termo[0] }}</td>
-        <td class="align-middle">{{ termo[1] }}</td>
+        <td class="align-middle termo">{{ termo[0] }}</td>
+        <td class="align-middle descricao">{{ termo[1] }}</td>
         <td class="align-middle">
           <div class="buttons">
           <a href="{{ url_for('editar_termo', termo_id=loop.index0) }}" class="btn btn-primary">Editar</a>
